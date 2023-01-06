@@ -91,12 +91,16 @@ const resetCalculator = () => {
 }
 
 const addSign = () => {
-  if (calculator.displayValue === '0') {
-    return
-  } else if (calculator.displayValue.includes('-')) {
+  if (calculator.displayValue === '0') return
+  
+  if (calculator.displayValue.includes('-')) {
     calculator.displayValue = calculator.displayValue.slice(1)
   } else {
     calculator.displayValue = '-' + calculator.displayValue
+  }
+
+  if (calculator.operator === '=' && calculator.waitingForSecondOperand) {
+    calculator.firstOperand = parseFloat(calculator.displayValue)
   }
   updateDisplay()
 }
@@ -168,3 +172,5 @@ window.addEventListener('keydown', e => {
   if (!key) return
   inputKey(key)
 })
+
+const logCalc = () => { console.log(calculator) }
